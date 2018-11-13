@@ -408,7 +408,7 @@ def create_access_policy(resource, action, r_id=None, service='nifi'):
     assert r_id is None or isinstance(r_id, six.string_types)
     assert service in _valid_services
     if resource[0] != '/':
-        resource = '/' + resource
+        resource = '/' + resource + '/'
     try:
         if service == 'nifi':
             return nipyapi.nifi.PoliciesApi().create_access_policy(
@@ -416,7 +416,7 @@ def create_access_policy(resource, action, r_id=None, service='nifi'):
                     revision=nipyapi.nifi.RevisionDTO(version=0),
                     component=nipyapi.nifi.AccessPolicyDTO(
                         action=action,
-                        resource=resource + '/' + r_id
+                        resource=resource + r_id
                     )
                 )
             )
